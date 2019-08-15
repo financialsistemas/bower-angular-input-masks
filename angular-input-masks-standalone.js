@@ -559,6 +559,15 @@ IErules.MA = [{
 }];
 
 IErules.MT = [{
+	// {mask: new StringMask('00.000.000-0')
+	chars: 9,
+	dvs: [{
+		dvpos: 8,
+		pesos: [9,8,7,6,5,4,3,2],
+		algorithmSteps: ['onlyNumbers', 'normalSum', 'mod11', 'minusRestOf11']
+	}],
+	validate: function(value) { return validateIE(value, this); }
+},{
 	// {mask: new StringMask('0000000000-0')
 	chars: 11,
 	dvs: [{
