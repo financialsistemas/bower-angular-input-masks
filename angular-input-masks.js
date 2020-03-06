@@ -1,7 +1,7 @@
 /**
  * angular-input-masks
  * Personalized input masks for AngularJS
- * @version v4.4.1
+ * @version v5.0.0
  * @link http://github.com/assisrafael/angular-input-masks
  * @license MIT
  */
@@ -26,19 +26,20 @@ var boletoBancarioMask = new StringMask('00000.00000 00000.000000 00000.000000 0
 var tributoBancarioMask = new StringMask('00000000000-0 00000000000-0 00000000000-0 00000000000-0');
 
 module.exports = maskFactory({
-	clearValue: function (rawValue) {
+	clearValue: function(rawValue) {
 		return rawValue.replace(/[^0-9]/g, '').slice(0, 48);
 	},
-	format: function (cleanValue) {
+	format: function(cleanValue) {
 		if (cleanValue.length === 0) {
 			return cleanValue;
 		}
-		if (cleanValue[0] === '8')
+		if (cleanValue[0] === '8') {
 			return tributoBancarioMask.apply(cleanValue).replace(/[^0-9]$/, '');
+		}
 		return boletoBancarioMask.apply(cleanValue).replace(/[^0-9]$/, '');
 	},
 	validations: {
-		brBoletoBancario: function (value) {
+		brBoletoBancario: function(value) {
 			return [47, 48].indexOf(value.length) >= 0;
 		}
 	}
@@ -67,7 +68,7 @@ module.exports = m.name;
 var StringMask = require('string-mask');
 var maskFactory = require('../../helpers/mask-factory');
 
-var carPlateMask = new StringMask('UUU-0000');
+var carPlateMask = new StringMask('UUU-AAAA');
 
 module.exports = maskFactory({
 	clearValue: function(rawValue) {

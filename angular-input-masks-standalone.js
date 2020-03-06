@@ -1,7 +1,7 @@
 /**
  * angular-input-masks
  * Personalized input masks for AngularJS
- * @version v4.4.1
+ * @version v5.0.0
  * @link http://github.com/assisrafael/angular-input-masks
  * @license MIT
  */
@@ -559,15 +559,6 @@ IErules.MA = [{
 }];
 
 IErules.MT = [{
-	// {mask: new StringMask('00.000.000-0')
-	chars: 9,
-	dvs: [{
-		dvpos: 8,
-		pesos: [9,8,7,6,5,4,3,2],
-		algorithmSteps: ['onlyNumbers', 'normalSum', 'mod11', 'minusRestOf11']
-	}],
-	validate: function(value) { return validateIE(value, this); }
-},{
 	// {mask: new StringMask('0000000000-0')
 	chars: 11,
 	dvs: [{
@@ -3980,19 +3971,20 @@ var boletoBancarioMask = new StringMask('00000.00000 00000.000000 00000.000000 0
 var tributoBancarioMask = new StringMask('00000000000-0 00000000000-0 00000000000-0 00000000000-0');
 
 module.exports = maskFactory({
-	clearValue: function (rawValue) {
+	clearValue: function(rawValue) {
 		return rawValue.replace(/[^0-9]/g, '').slice(0, 48);
 	},
-	format: function (cleanValue) {
+	format: function(cleanValue) {
 		if (cleanValue.length === 0) {
 			return cleanValue;
 		}
-		if (cleanValue[0] === '8')
+		if (cleanValue[0] === '8') {
 			return tributoBancarioMask.apply(cleanValue).replace(/[^0-9]$/, '');
+		}
 		return boletoBancarioMask.apply(cleanValue).replace(/[^0-9]$/, '');
 	},
 	validations: {
-		brBoletoBancario: function (value) {
+		brBoletoBancario: function(value) {
 			return [47, 48].indexOf(value.length) >= 0;
 		}
 	}
@@ -4021,7 +4013,7 @@ module.exports = m.name;
 var StringMask = require('string-mask');
 var maskFactory = require('../../helpers/mask-factory');
 
-var carPlateMask = new StringMask('UUU-0000');
+var carPlateMask = new StringMask('UUU-AAAA');
 
 module.exports = maskFactory({
 	clearValue: function(rawValue) {
@@ -4161,7 +4153,7 @@ var ieMasks = {
 	'MA': [{mask: new StringMask('000000000')}],
 	'MG': [{mask: new StringMask('000.000.000/0000')}],
 	'MS': [{mask: new StringMask('000000000')}],
-	'MT': [{chars: 9, mask: new StringMask('00.000.000-0')}, {mask: new StringMask('0000000000-0')}],
+	'MT': [{mask: new StringMask('0000000000-0')}, {chars: 9, mask: new StringMask('00.000.000-0')}],
 	'PA': [{mask: new StringMask('00-000000-0')}],
 	'PB': [{mask: new StringMask('00000000-0')}],
 	'PE': [{chars: 9, mask: new StringMask('0000000-00')}, {mask: new StringMask('00.0.000.0000000-0')}],

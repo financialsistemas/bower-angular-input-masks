@@ -1,7 +1,7 @@
 /**
  * angular-input-masks
  * Personalized input masks for AngularJS
- * @version v4.4.1
+ * @version v5.0.0
  * @link http://github.com/assisrafael/angular-input-masks
  * @license MIT
  */
